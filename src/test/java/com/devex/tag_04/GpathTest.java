@@ -25,6 +25,24 @@ public class GpathTest {
 
             List<String> jDevs = jsonData.getList("findAll{it.status='Junior Developer'}.user.email");
             jDevs.forEach(System.out::println);
+
+            int sumOfIds = jsonData.getInt("id.sum()");
+            System.out.println("sumOfIds = " + sumOfIds);
+
+            int minId = jsonData.getInt("id.min()");
+            System.out.println("minId = " + minId);
+
+            int maxId = jsonData.getInt("id.max()");
+            System.out.println("maxId = " + maxId);
+
+            int sizeId = jsonData.getInt("id.size()");
+            System.out.println("sizeId = " + sizeId);
+
+            List<String> githubMails = jsonData.getList("findAll{it.githubusername!='null'}.user.email");
+            System.out.println("githubMails = " + githubMails);
+
+            List<Object> experiencedUser = jsonData.getList("findAll{it.experience!=null}.user.email");
+            System.out.println("experiencedUser = " + experiencedUser);
         }
 
     }
