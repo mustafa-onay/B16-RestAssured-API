@@ -2,6 +2,8 @@ package com.devex.tag_05;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.hamcrest.Matchers;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -152,6 +154,13 @@ public class HamcrestMatchersTest {
                 .body("education[924][0].school",is("Full Stack SDET"))
                 .body("experience[924][0].title",is("SDET"))
                 .body("experience[924][1].company",is("Amazon"));
+    }
+
+    @Test
+    public void test8() {
+       String word = "eurotech";
+
+       assertThat(word, allOf(startsWith("e"), endsWith("h"),containsString("rot")));
 
     }
 }
