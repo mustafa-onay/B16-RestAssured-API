@@ -4,6 +4,7 @@ import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.List;
 import java.util.Map;
 
 import static io.restassured.RestAssured.*;
@@ -23,5 +24,16 @@ public class JsonToJavaTest {
 
         Map<String, Object> map = response.as(Map.class);
         System.out.println("map = " + map);
+    }
+
+    @Test
+    public void test2() {
+        Response response = given().accept(ContentType.JSON)
+                //.log().all()
+                .when().get("/api/profile");
+
+        List<Map<String, Object>> list = response.as(List.class);
+
+        System.out.println("list = " + list);
     }
 }
