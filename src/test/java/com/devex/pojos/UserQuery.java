@@ -1,6 +1,15 @@
 package com.devex.pojos;
 
 public class UserQuery {
+    public UserQuery(Double id, String email, String name, String company, String status, Integer profileId) {
+        this.id = id;
+        this.email = email;
+        this.name = name;
+        this.company = company;
+        this.status = status;
+        this.profileId = profileId;
+    }
+
     private Double id;
     private String email;
     private String name;
