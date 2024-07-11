@@ -1,28 +1,15 @@
-
 package com.devex.pojos;
 
-
 public class User {
-
-
     private Integer id;
-
     private String name;
-
     private String email;
-
     private String password;
-
     private String avatar;
-
     private String date;
-
     private Object google;
-
     private Object github;
-
     private Object facebook;
-
     private Integer profileId;
 
     public Integer getId() {

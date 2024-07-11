@@ -1,7 +1,6 @@
 package com.devex.pojos;
 
 public class UserQuery {
-
     private Double id;
     private String email;
     private String name;

@@ -1,24 +1,14 @@
-
 package com.devex.pojos;
-
 
 public class Education {
 
-
     private Integer id;
-
     private String school;
-
     private String degree;
-
     private String fieldofstudy;
-
     private String from;
-
     private String to;
-
     private Boolean current;
-
     private String description;
 
     public Integer getId() {

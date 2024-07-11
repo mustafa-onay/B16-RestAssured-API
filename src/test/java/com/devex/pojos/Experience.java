@@ -1,25 +1,13 @@
-
 package com.devex.pojos;
 
-
-
 public class Experience {
-
-
     private Integer id;
-
     private String title;
-
     private String company;
-
     private String location;
-
     private String from;
-
     private String to;
-
     private Boolean current;
-
     private String description;
 
     public Integer getId() {

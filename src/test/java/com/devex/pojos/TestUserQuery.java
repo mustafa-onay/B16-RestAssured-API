@@ -1,18 +1,11 @@
 package com.devex.pojos;
 
 public class TestUserQuery {
-
-
 private Integer id;
-
 private String email;
-
 private String name;
-
 private String company;
-
 private String status;
-
 private Integer profileId;
 
 public Integer getId() {

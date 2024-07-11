@@ -1,39 +1,23 @@
-
 package com.devex.pojos;
 
 import java.util.List;
 
 public class AllUsers {
 
-
     private Integer id;
-
     private String company;
-
     private String website;
-
     private Integer year;
-
     private String location;
-
     private String status;
-
     private List<String> skills;
-
     private String bio;
-
     private String githubusername;
-
     private Social social;
-
     private String date;
-
     private Integer userId;
-
     private User user;
-
     private List<Education> education;
-
     private List<Experience> experience;
 
     public Integer getId() {
