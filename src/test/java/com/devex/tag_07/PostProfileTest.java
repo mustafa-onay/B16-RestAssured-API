@@ -142,4 +142,3 @@ public class PostProfileTest {
 
     // benutzen Sie Map und Pojo für den gleichen Test
     }
-}
