@@ -1,7 +1,6 @@
 package com.devex.tag_07;
 import static io.restassured.RestAssured.*;
 
-import com.devex.pojos.PostUser;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -11,9 +10,6 @@ import org.testng.annotations.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static io.restassured.RestAssured.*;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
 
 public class PostProfileTest {
 
@@ -22,12 +18,13 @@ public class PostProfileTest {
         baseURI = "http://www.eurotech.study";
     }
 
+
     @Test
-    public void postUserWithString() {
+    public void postProfileWithString() {
 
         String userBody = """
                 {
-                  "email": "forrestgump3@gmail.com",
+                  "email": "forrestgump7@gmail.com",
                   "password": "Test123",
                   "name": "Forrest Gump",
                   "google": "string",
@@ -46,31 +43,58 @@ public class PostProfileTest {
         String token = response.path("token");
         System.out.println("token = " + token);
 
-        response = given().accept(ContentType.JSON)
-                .and().header("x-auth-token", token)
-                .when().get("/api/auth");
-        response.prettyPrint();
-        assertThat(response.path("name"), equalTo(postedName));
 
+        String profileBody = """
+                {
+                  "company": "Bubba Gump",
+                  "website": "bubbagump.com",
+                  "location": "USA",
+                  "status": "Available",
+                  "skills": "HTML,CSS,Javascript",
+                  "githubusername": "forrestGithub",
+                  "youtube": "string",
+                  "twitter": "string",
+                  "facebook": "string",
+                  "linkedin": "string",
+                  "instagram": "string"
+                }""";
+
+        String website = "bubbagump.com";
+
+        Response responseProfile = given().accept(ContentType.JSON)
+                .and().contentType(ContentType.JSON)
+                .and().header("x-auth-token", token)
+                .and().body(profileBody)
+                .when().post("/api/profile")
+                .then().assertThat().statusCode(200)
+                .log().all()
+                .extract().response();
+
+        Response responseGetInfo = given().accept(ContentType.JSON)
+                .and().header("x-auth-token", token)
+                .and().get("/api/profile/me");
+
+        Assert.assertEquals(responseGetInfo.path("website").toString(), responseProfile.path("website").toString());
+
+        response.prettyPrint();
 
     }
     @Test
-    public void postUserWithMap() {
+    public void postProfileWithMap() {
 
-
-        Map<String, Object> userBodyMap = new HashMap<>();
-        userBodyMap.put("email", "forrestgump4@gmail.com");
-        userBodyMap.put("password", "Test123");
-        userBodyMap.put("name", "Forrest Gump");
-        userBodyMap.put("google", "string");
-        userBodyMap.put("facebook", "string");
-        userBodyMap.put("github", "string");
+        Map<String, Object> profileMap = new HashMap<String, Object>();
+        profileMap.put("email", "forrestgump8@gmail.com");
+        profileMap.put("password", "Test123");
+        profileMap.put("name", "Forrest Gump");
+        profileMap.put("google", "string");
+        profileMap.put("facebook", "string");
+        profileMap.put("github", "string");
 
 
         String postedName = "Forrest Gump";
         Response response = given().accept(ContentType.JSON)
                 .and().contentType(ContentType.JSON)
-                .and().body(userBodyMap) // serialization
+                .and().body(profileMap)
                 .when().post("/api/users");
 
         response.then().assertThat().statusCode(200);
@@ -79,44 +103,42 @@ public class PostProfileTest {
         String token = response.path("token");
         System.out.println("token = " + token);
 
-        response = given().accept(ContentType.JSON)
-                .and().header("x-auth-token", token)
-                .when().get("/api/auth");
-        response.prettyPrint();
-        assertThat(response.path("name"), equalTo(postedName));
 
+
+        Map<String, Object> profileBodyMap = new HashMap<>();
+        profileBodyMap.put("company", "Bubba Gump");
+        profileBodyMap.put("website", "bubbagump.com");
+        profileBodyMap.put("location", "USA");
+        profileBodyMap.put("status", "Available");
+        profileBodyMap.put("skills", "HTML,CSS,Javascript");
+        profileBodyMap.put("githubusername", "forrestGithub");
+        profileBodyMap.put("youtube", "string");
+        profileBodyMap.put("twitter", "string");
+        profileBodyMap.put("facebook", "string");
+        profileBodyMap.put("linkedin", "string");
+        profileBodyMap.put("instagram", "string");
+
+        String website = "bubbagump.com";
+
+        Response responseProfile = given().accept(ContentType.JSON)
+                .and().contentType(ContentType.JSON)
+                .and().header("x-auth-token", token)
+                .and().body(profileBodyMap)
+                .when().post("/api/profile")
+                .then().assertThat().statusCode(200)
+                .log().all()
+                .extract().response();
+
+        Response responseGetInfo = given().accept(ContentType.JSON)
+                .and().header("x-auth-token", token)
+                .and().get("/api/profile/me");
+
+        Assert.assertEquals(responseGetInfo.path("website").toString(), responseProfile.path("website").toString());
+
+        response.prettyPrint();
 
     }
-    @Test
-    public void postUserWithPojo() {
 
-
-        PostUser postUserBody = new PostUser();
-        postUserBody.setEmail("forrestgump5@gmail.com");
-        postUserBody.setPassword("Test123");
-        postUserBody.setName("Forrest Gump");
-        postUserBody.setGoogle("string");
-        postUserBody.setFacebook("string");
-        postUserBody.setGithub("string");
-
-
-        String postedName = "Forrest Gump";
-        Response response = given().accept(ContentType.JSON)
-                .and().contentType(ContentType.JSON)
-                .and().body(postUserBody) // serialization
-                .when().post("/api/users");
-
-        response.then().assertThat().statusCode(200);
-        Assert.assertTrue(response.body().asString().contains("token"));
-
-        String token = response.path("token");
-        System.out.println("token = " + token);
-
-        response = given().accept(ContentType.JSON)
-                .and().header("x-auth-token", token)
-                .when().get("/api/auth");
-        response.prettyPrint();
-        assertThat(response.path("name"), equalTo(postedName));
 
     // benutzen Sie Map und Pojo für den gleichen Test
     }
